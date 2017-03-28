@@ -1,20 +1,21 @@
 package praktikum1;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.Collection;
 
 public interface AccountManager extends Remote {
 
-	void addAccount(String customerName, String password);
+	int addAccount(String customerName, String password) throws RemoteException;
 
-	void deposit(String customerName, String password, int amount) throws CustomerClientException;
+	void deposit(int accountNumber, String customerName, int amount) throws RemoteException, CustomerClientException;
 
-	void withdraw(String customerName, String password, int amount) throws CustomerClientException;
+	void withdraw(int accountNumber, String customerName, String password, int amount) throws RemoteException, CustomerClientException;
 
-	Balance getBalance(String customerName, String password, int accountNumber);
+	Balance getBalance(int accountNumber, String customerName, String password) throws RemoteException, CustomerClientException;
 
-	int getSum(String customerName) throws TaxClientException;
+	int getSum(String customerName) throws RemoteException;
 
-	Collection<Integer> getAccountNumbersForCustomer(String customerName) throws TaxClientException;
+	Collection<Integer> getAccountNumbers(String customerName) throws RemoteException;
 
 }

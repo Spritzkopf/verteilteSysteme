@@ -1,26 +1,24 @@
 package praktikum1;
 
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
-public class BankServer extends Thread {
+public class BankServer {
 
+	private final Registry registry;
+	private final AccountManager accountManager;
 
+	public BankServer(int id) throws RemoteException {
+		registry = LocateRegistry.createRegistry(id);
+		accountManager = new AccountManagerImpl();
+		registry.rebind("accountManager", accountManager);
+	}
 
-
-	@Override
-	public void run() {
-		try {
-
-			Registry reg = LocateRegistry.createRegistry (1099);
-
-			ComplexAdderImpl ad = new ComplexAdderImpl ("myComplexAdder", reg);
-			//AdderImpl ad = new AdderImpl ("rmi://localhost:1099/myComplexAdder");
-
-			System.out.println ("ComplAdder Server ready.");
-		}
-		catch (Exception e) {
-			System.out.println ("ServerException: " + e.getMessage());
-		}
+	public void close() throws RemoteException, NotBoundException {
+		registry.unbind("accountManager");
+		UnicastRemoteObject.unexportObject(registry, true);
 	}
 }

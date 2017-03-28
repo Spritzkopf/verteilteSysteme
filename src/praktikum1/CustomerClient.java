@@ -1,35 +1,33 @@
 package praktikum1;
 
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-public class CustomerClient extends Thread {
+public class CustomerClient {
 
-	@Override
-	public void run() {
-		super.run();
-		try {
-			Registry reg = LocateRegistry.getRegistry(1099);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+	private AccountManager accountManager;
+
+	public CustomerClient(int bankId) throws RemoteException, NotBoundException {
+		Registry reg = LocateRegistry.getRegistry(bankId);
+		accountManager = (AccountManager) reg.lookup("accountManager");
 	}
 
-	public void addAccount(String customerName, String password) {
-
+	public int addAccount(String customerName, String password) throws RemoteException {
+		return accountManager.addAccount(customerName, password);
 	}
 
-	public void deposit(String customerName, String password, int amount) throws CustomerClientException {
-
+	public void deposit(int accountNumber, String customerName, int amount) throws RemoteException, CustomerClientException {
+		accountManager.deposit(accountNumber, customerName, amount);
 	}
 
-	public void withdraw(String customerName, String password, int amount) throws CustomerClientException {
-
+	public void withdraw(int accountNumber, String customerName, String password, int amount) throws RemoteException, CustomerClientException {
+		accountManager.withdraw(accountNumber, customerName, password, amount);
 	}
 
-	public Balance  getBalance(String customerName, String password, int accountNumber) {
-		return null;
+	public Balance getBalance(int accountNumber, String customerName, String password) throws RemoteException, CustomerClientException {
+		return accountManager.getBalance(accountNumber, customerName, password);
 	}
 
 }

@@ -1,14 +1,28 @@
 package praktikum1;
 
 public class Account {
-	private String customerName;
+	private final String customerName;
 	private String password;
 	private int balance;
+	private final int accountNumber;
 
-	public Account(String password, int balance, String customerName) {
+	public Account(String customerName, String password, int accountNumber) {
 		this.password = password;
-		this.balance = balance;
+		this.balance = 0;
 		this.customerName = customerName;
+		this.accountNumber = accountNumber;
+	}
+
+	public void withdraw(int amount) {
+		balance -= amount;
+	}
+
+	public void deposit(int amount) {
+		balance += amount;
+	}
+
+	public int getAccountNumber() {
+		return accountNumber;
 	}
 
 	public String getCustomerName() {
@@ -22,4 +36,5 @@ public class Account {
 	public int getBalance() {
 		return balance;
 	}
+
 }
