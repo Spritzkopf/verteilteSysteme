@@ -30,24 +30,24 @@ public class Tester {
 
 	@Test
 	public void test() throws Exception {
-			int id1 = customerClient.addAccount("Hans", "password1");
-			int id2 = customerClient.addAccount("Peter", "password2");
-			int id3 = customerClient.addAccount("Anna", "password3");
+		int id1 = customerClient.addAccount("Hans", "password1");
+		int id2 = customerClient.addAccount("Peter", "password2");
+		int id3 = customerClient.addAccount("Anna", "password3");
 
-			customerClient.deposit(id1, "Hans", 40);
-			customerClient.withdraw(id1, "Hans", "password1", 30);
-			customerClient.deposit(id2, "Peter", 50);
-			customerClient.withdraw(id2, "Peter", "password2", 30);
-			customerClient.deposit(id3, "Anna", 60);
-			customerClient.withdraw(id3, "Anna", "password3", 30);
+		customerClient.deposit(id1, "Hans", 40);
+		customerClient.withdraw(id1, "Hans", "password1", 30);
+		customerClient.deposit(id2, "Peter", 50);
+		customerClient.withdraw(id2, "Peter", "password2", 30);
+		customerClient.deposit(id3, "Anna", 60);
+		customerClient.withdraw(id3, "Anna", "password3", 30);
 
-			Balance b1 = customerClient.getBalance(id1, "Hans", "password1");
-			Balance b2 = customerClient.getBalance(id2, "Peter", "password2");
-			Balance b3 = customerClient.getBalance(id3, "Anna", "password3");
+		Balance b1 = customerClient.getBalance(id1, "Hans", "password1");
+		Balance b2 = customerClient.getBalance(id2, "Peter", "password2");
+		Balance b3 = customerClient.getBalance(id3, "Anna", "password3");
 
-			Assert.assertEquals("Account balance not correct", b1.getBalance(), 10);
-			Assert.assertEquals("Account balance not correct", b2.getBalance(), 20);
-			Assert.assertEquals("Account balance not correct", b3.getBalance(), 30);
+		Assert.assertEquals("Account balance not correct", b1.getBalance(), 10);
+		Assert.assertEquals("Account balance not correct", b2.getBalance(), 20);
+		Assert.assertEquals("Account balance not correct", b3.getBalance(), 30);
 	}
 
 	@Test

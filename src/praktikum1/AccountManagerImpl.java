@@ -1,7 +1,6 @@
 package praktikum1;
 
 import java.rmi.RemoteException;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.HashMap;
